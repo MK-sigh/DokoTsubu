@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-import dokotsubu.model.LoginData;
 import dokotsubu.model.LoginLogic;
 import dokotsubu.model.User;
 
@@ -25,8 +24,6 @@ public class Login extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String name = request.getParameter("name");
 		String pass = request.getParameter("pass");
-        
-        LoginData loginData = new LoginData(name, pass);
         
 		//ユーザー名、PWが充たされている場合
 		if((name != null && name.length() !=0)
