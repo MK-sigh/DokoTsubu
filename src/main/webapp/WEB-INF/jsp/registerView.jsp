@@ -20,6 +20,6 @@ String errorMsg = (String) request.getAttribute("errorMsg");
         <%if (errorMsg!=null){%>
         <p style="color: red;"><%=errorMsg %></p>
         <%}%>
-        <a href ="index.jsp">TOPへ</a>}
+        <a href ="index.jsp">TOPへ</a>
     </body>
 </html>
