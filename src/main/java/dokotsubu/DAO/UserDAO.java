@@ -5,19 +5,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import dokotsubu.model.LoginData;
 import dokotsubu.model.User;
 import dokotsubu.util.DBManager;
 
 public class UserDAO {
-    public User findByLogin(LoginData loginData){
-        User user = null;
+    public User findByLogin(User user){
         try(Connection conn = DBManager.getConnection()){
             String sql =
             "SELECT USER_ID, PASS, NAME,  FROM ACCOUNTS WHERE USER_ID=? AND PASS=?";
             PreparedStatement pStmt = conn.prepareStatement(sql);
-            pStmt.setString(1, loginData.getUserId());
-            pStmt.setString(2, loginData.getPass());
+            pStmt.setInt(1, user.getUserId());
+            pStmt.setString(2, user.getPass());
 
             ResultSet rs = pStmt.executeQuery();
 

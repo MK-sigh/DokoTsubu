@@ -10,8 +10,8 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-import dokotsubu.DAO.UserDAO;
 import dokotsubu.model.LoginData;
+import dokotsubu.model.LoginLogic;
 import dokotsubu.model.User;
 
 @WebServlet("/Login")
@@ -28,17 +28,26 @@ public class Login extends HttpServlet {
         
         LoginData loginData = new LoginData(name, pass);
         
-        // DAOを使ってDBからユーザーを探す
-        UserDAO dao = new UserDAO();
-        User user = dao.findByLogin(loginData);
-        
-        if (user != null) {
-            // ログイン成功時：ユーザー情報をセッションに保存
-            HttpSession session = request.getSession();
-            session.setAttribute("loginUser", user
-
-			);
-        }
+		//ユーザー名、PWが充たされている場合
+		if((name != null && name.length() !=0)
+			&& (pass != null && pass.length() !=0)){
+			User user = new User(name, pass);
+			LoginLogic loginLogic = new LoginLogic();
+			//DBに存在するかチェック（PWチェック込み）
+			User findUser = loginLogic.find(user);
+			
+			//ログイン処理
+			if (findUser != null) {
+				// ログイン成功時：ユーザー情報をセッションに保存
+				HttpSession session = request.getSession();
+				session.setAttribute("loginUser", findUser);
+			}else{
+				request.setAttribute("errorMsg", "パスワードが間違っているか、ユーザーが未登録です");
+			}
+		}else{
+			//どちらか入力されていなければエラーメッセージ
+			request.setAttribute("errorMsg", "必要項目が未入力です");
+		}
 		//ログイン結果画面にフォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher
 				("WEB-INF/jsp/loginResult.jsp");

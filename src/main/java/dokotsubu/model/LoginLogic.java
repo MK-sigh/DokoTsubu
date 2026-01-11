@@ -4,8 +4,8 @@ import dokotsubu.DAO.UserDAO;
 
 public class LoginLogic {
 	// ユーザー情報の存在チェック
-	public User findUser (User user) {
+	public User find (User user) {
 		UserDAO dao = new UserDAO();
-		return dao.findUser(user);
+		return dao.findByLogin(user);
 	}
 }
