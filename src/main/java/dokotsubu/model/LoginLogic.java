@@ -6,6 +6,6 @@ public class LoginLogic {
 	// ユーザー情報の存在チェック
 	public User find (User user) {
 		UserDAO dao = new UserDAO();
-		return dao.findByLogin(user);
+		return dao.findUser(user);
 	}
 }
