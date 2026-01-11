@@ -1,8 +1,11 @@
 package dokotsubu.model;
 
+import dokotsubu.DAO.UserDAO;
+
 public class LoginLogic {
-	public boolean execute (User user) {
-		if (user.getPass().equals("1234")) {return true;}
-		return false;
+	// ユーザー情報の存在チェック
+	public User findUser (User user) {
+		UserDAO dao = new UserDAO();
+		return dao.findUser(user);
 	}
 }
