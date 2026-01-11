@@ -10,7 +10,7 @@ import dokotsubu.util.DBManager;
 
 public class UserDAO {
     //ユーザー登録
-    public boolean resisterUser(User user){
+    public boolean registerUser(User user){
         try(Connection conn = DBManager.getConnection()){
             String sql =
             "INSERT INTO ACCOUNTS (NAME, PASS) VALUES (?,?);";
