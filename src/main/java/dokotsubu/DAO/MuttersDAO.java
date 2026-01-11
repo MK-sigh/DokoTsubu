@@ -1,6 +1,5 @@
 package dokotsubu.DAO;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,23 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dokotsubu.model.Mutter;
+import dokotsubu.util.DBManager;
 
 public class MuttersDAO {
 	//データベース接続に関する情報
-	private final String JDBC_URL= "jdbc:h2:tcp://localhost/~/dokoTsubu";
-	private final String DB_USER = "sa";
-	private final String DB_PASS = "";
-	
+
 	public List<Mutter> findAll(){
 		List<Mutter> mutterList = new ArrayList<Mutter>();
-		//JDBCドライバを読み込む
-		try {Class.forName("org.h2.Driver");		
-		}catch(ClassNotFoundException e) {
-			throw new IllegalStateException("no JDBC driver.");
-		}
 		//データベース接続
-		try (Connection conn = 
-				DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)){
+		try (Connection conn = DBManager.getConnection()){
 			
 			//SELECT文の準備
 			String sql = 
@@ -48,14 +39,8 @@ public class MuttersDAO {
 	}
 	
 	public boolean create (Mutter mutter) {
-		//JDBCドライバを読み込む
-		try {Class.forName("org.h2.Driver");
-		}catch(ClassNotFoundException e) {
-			throw new IllegalStateException("no JDBC driver.");
-		}
 		//データベース接続
-		try(Connection conn = 
-				DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)){
+		try(Connection conn = DBManager.getConnection()){
 
 			//INSERT文の準備（idは自動連番なので指定しなくてよい）
 			String sql = "INSERT INTO MUTTERS (NAME, TEXT) VALUES(?,?)";
