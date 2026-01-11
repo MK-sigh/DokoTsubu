@@ -14,7 +14,7 @@ public class UserDAO {
         User user = null;
         try(Connection conn = DBManager.getConnection()){
             String sql =
-            "SELECT USER_ID, PASS, MAIL, NAME, AGE FROM ACCOUNTS WHERE USER_ID=? AND PASS=?";
+            "SELECT USER_ID, PASS, NAME,  FROM ACCOUNTS WHERE USER_ID=? AND PASS=?";
             PreparedStatement pStmt = conn.prepareStatement(sql);
             pStmt.setString(1, loginData.getUserId());
             pStmt.setString(2, loginData.getPass());
@@ -22,12 +22,10 @@ public class UserDAO {
             ResultSet rs = pStmt.executeQuery();
 
             if (rs.next()){
-                String userId = rs.getString("USER_ID");
+                int userId = rs.getInt("USER_ID");
                 String pass = rs.getString("PASS");
-                String mail = rs.getString("MAIL");
                 String name = rs.getString("NAME");
-                int age = rs.getInt("AGE");
-                user = new User(userId, pass, mail, name, age);
+                user = new User(userId, pass, name);
             }
         }catch(SQLException e){
             e.printStackTrace();

@@ -2,25 +2,27 @@ package dokotsubu.model;
 import java.io.Serializable;
 
 public class User implements Serializable{
-	private String userId;
+	private int userId;
 	private String pass;
-    private String mail;
     private String name;
-    private int age;
 
 	public User(){}
-	
-    public User (String userId, String pass, String mail, String name, int age){
+    //存在チェック用
+    public User (String pass,String name){
+        this.pass = pass;
+        this.name = name;
+    }
+    //フルデータ用
+    public User (int userId, String pass, String name){
         this.userId = userId;
         this.pass = pass;
-        this.mail = mail;
         this.name = name;
-        this.age = age;
     }
 
-    public String getUserId(){return userId;}
+    public int getUserId(){return userId;}
+    public void setUserId(int id){this.userId=id;}
     public String getPass(){return pass;}
-    public String getMail(){return mail;}
+    public void setPass(String pass){this.pass=pass;}
     public String getName(){return name;}
-    public int getAge(){return age;}
+    public void setName(String name){this.name=name;}
 }
