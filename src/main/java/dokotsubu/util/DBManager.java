@@ -16,7 +16,10 @@ public class DBManager {
                 throw new RuntimeException("db.propertiesが見つかりません");
             }
             props.load(is);
+            try{
             Class.forName(props.getProperty("driver"));
+            }catch (ClassNotFoundException e) {
+            throw new IllegalStateException("JDBCが読み込めませんでした");}
         } catch (Exception e) {
             e.printStackTrace();
         }
