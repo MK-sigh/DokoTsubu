@@ -2,13 +2,14 @@ package dokotsubu.model;
 import java.io.Serializable;
 public class Mutter implements Serializable{
 	private int id;
+	private int userId;
 	private String userName;
 	private String text;
 	
 	public Mutter() {}
 	
-	public Mutter(String userName, String text) {
-		this.userName = userName;
+	public Mutter(int userId, String text) {
+		this.userId = userId;
 		this.text = text;
 	}
 	
@@ -18,6 +19,7 @@ public class Mutter implements Serializable{
 		this.text = text;
 	}
 	public int getId() { return id;}
+	public int getUserId() { return userId; }
 	public String getUserName() { return userName; }
 	public String getText() { return text; }
 }
