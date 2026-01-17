@@ -56,7 +56,7 @@ public class Main extends HttpServlet {
 			User loginUser = (User)session.getAttribute("loginUser");
 			
 			//呟きを生成してつぶやきリストに追加
-			Mutter mutter = new Mutter (loginUser.getName(),text);
+			Mutter mutter = new Mutter (loginUser.getId(),text);
 			PostMutterLogic postMutterLogic = new PostMutterLogic();
 			postMutterLogic.execute(mutter);
 			

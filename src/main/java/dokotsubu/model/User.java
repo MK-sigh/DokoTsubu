@@ -2,7 +2,7 @@ package dokotsubu.model;
 import java.io.Serializable;
 
 public class User implements Serializable{
-	private int userId;
+	private int id;
 	private String pass;
     private String name;
 
@@ -13,14 +13,14 @@ public class User implements Serializable{
         this.name = name;
     }
     //フルデータ用
-    public User (int userId, String pass, String name){
-        this.userId = userId;
+    public User (int id, String pass, String name){
+        this.id = id;
         this.pass = pass;
         this.name = name;
     }
 
-    public int getUserId(){return userId;}
-    public void setUserId(int id){this.userId=id;}
+    public int getId(){return id;}
+    public void setId(int id){this.id=id;}
     public String getPass(){return pass;}
     public void setPass(String pass){this.pass=pass;}
     public String getName(){return name;}
