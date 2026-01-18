@@ -27,6 +27,10 @@ public class Main extends HttpServlet {
 		GetMutterListLogic getMutterListLogic = new GetMutterListLogic();
 		List<Mutter> mutterList = getMutterListLogic.execute();
 		request.setAttribute("mutterList", mutterList);
+		if (mutterList == null){
+			//エラーメッセージをリクエストスコープに保存
+			request.setAttribute("errorMsg", "no mutter");
+			return;}
 
 		//ログインしているか確認するためセッションスコープからユーザー情報を取得
 		HttpSession session = request.getSession();

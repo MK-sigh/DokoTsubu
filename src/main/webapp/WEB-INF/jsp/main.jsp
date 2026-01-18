@@ -21,13 +21,24 @@ String errorMsg = (String)request.getAttribute("errorMsg");
 <p><%= loginUser.getName() %>,login now.</p>
 <a href= "Logout">logout</a>
 <p><a href="Main">update</a></p>
+
+<form action="Search" method="post">
+<input type="text" name="keyword">
+<input type="submit" value="検索">
+</form>
+
 <form action="Main" method="post">
 <input type="text" name="text">
 <input type="submit" value="mutter">
 </form>
-<% for (Mutter mutter : mutterList){ %>
-<p><%= mutter.getUserName() %> : <%= mutter.getText() %></p>
-<% } %>
+
+<%if (mutterList != null && mutterList.size() > 0){%>
+    <% for (Mutter mutter : mutterList){ %>
+        <p><%= mutter.getUserName() %> : <%= mutter.getText() %></p>
+    <% } %>
+<% }else{%>
+    <p>つぶやきはありません。</p>
+<%} %>
 <% if(errorMsg != null){ %>
 <p><%= errorMsg %></p>
 <% } %>
