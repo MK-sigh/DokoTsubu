@@ -28,7 +28,7 @@ public class Login extends HttpServlet {
 		//ユーザー名、PWが充たされている場合
 		if((name != null && name.length() !=0)
 			&& (pass != null && pass.length() !=0)){
-			User user = new User(pass,name);
+			User user = new User(name, pass);
 			LoginLogic loginLogic = new LoginLogic();
 			//DBに存在するかチェック（PWチェック込み）
 			User findUser = loginLogic.find(user);

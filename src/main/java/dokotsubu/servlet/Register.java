@@ -30,7 +30,7 @@ public class Register extends HttpServlet{
         if((username != null && username.length() != 0) && (password != null && password.length() != 0)) {
             System.out.println("正常処理に入る");
         	// ユーザーを作成し、データベースに保存する
-            User user = new User(username, password);
+            User user = new User( username, password);
             RegisterUserLogic registerUserLogic = new RegisterUserLogic();
             boolean result = registerUserLogic.execute(user);
 

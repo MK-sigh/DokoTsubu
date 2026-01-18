@@ -40,10 +40,10 @@ public class UserDAO {
             ResultSet rs = pStmt.executeQuery();
 
             if (rs.next()){
-                int userId = rs.getInt("USER_ID");
-                String pass = rs.getString("PASS");
+                int userId = rs.getInt("ID");
                 String name = rs.getString("NAME");
-                user = new User(userId, pass, name);
+                String pass = rs.getString("PASS");
+                user = new User(userId, name, pass);
                 return user;
             }
             return null;
