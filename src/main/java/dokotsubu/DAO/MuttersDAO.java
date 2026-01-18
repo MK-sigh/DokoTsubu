@@ -20,17 +20,18 @@ public class MuttersDAO {
 			//SELECT文の準備
 			String sql =
 			"""
-			SELECT m.id, a.name ,m.text FROM mutters m
-			JOIN accouts a ON (a.id = m.user_id)
-			ORDER BY m.id DESC";
+			SELECT m.id, a.name, m.text FROM mutters m
+			JOIN accounts a ON (a.id = m.user_id)
+			ORDER BY m.id DESC;
 			""";
+
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			//SELECTを実行
 			ResultSet rs = pStmt.executeQuery();
 			//SELECT文の結果をArrayListに格納
 			while (rs.next()){
 				int id = rs.getInt("ID");
-				String userName = rs.getString("USER_NAME");
+				String userName = rs.getString("NAME");
 				String text = rs.getString("TEXT");
 				Mutter mutter = new Mutter(id,userName,text);
 				mutterList.add(mutter);
@@ -63,24 +64,24 @@ public class MuttersDAO {
 		return true;
 	}
 
-	public List<Mutter> searcMutter(String keyword){
+	public List<Mutter> searchMutter(String keyword){
 		List<Mutter> mutterList = new ArrayList<Mutter>();
 		try(Connection conn = DBManager.getConnection()){
 			String sql =
 				"""
 				SELECT m.id, a.name ,m.text FROM mutters m
-				JOIN accouts a ON (a.id = m.user_id)
-				WHERE LIKE '%?%'
-				ORDER BY m.id DESC";
+				JOIN accounts a ON (a.id = m.user_id)
+				WHERE m.text LIKE ?
+				ORDER BY m.id DESC;
 				""";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
-			pStmt.setString(1, keyword);
+			pStmt.setString(1, "%"+keyword+"%");
 			//SELECTを実行
 			ResultSet rs = pStmt.executeQuery();
 			//SELECT文の結果をArrayListに格納
 			while (rs.next()){
 				int id = rs.getInt("ID");
-				String userName = rs.getString("USER_NAME");
+				String userName = rs.getString("NAME");
 				String text = rs.getString("TEXT");
 				Mutter mutter = new Mutter(id,userName,text);
 				mutterList.add(mutter);
