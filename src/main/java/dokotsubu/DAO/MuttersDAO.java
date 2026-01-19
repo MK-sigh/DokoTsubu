@@ -10,8 +10,7 @@ import dokotsubu.model.Mutter;
 import dokotsubu.util.DBManager;
 
 public class MuttersDAO {
-	//データベース接続に関する情報
-
+	//全投稿取得
 	public List<Mutter> findAll(){
 		List<Mutter> mutterList = new ArrayList<Mutter>();
 		//データベース接続
@@ -43,6 +42,7 @@ public class MuttersDAO {
 		return mutterList;
 	}
 	
+	//新規投稿の追加
 	public boolean create (Mutter mutter) {
 		//データベース接続
 		try(Connection conn = DBManager.getConnection()){
@@ -64,7 +64,8 @@ public class MuttersDAO {
 		return true;
 	}
 
-	public List<Mutter> searchMutter(String keyword){
+	//検索機能
+	public List<Mutter> search(String keyword){
 		List<Mutter> mutterList = new ArrayList<Mutter>();
 		try(Connection conn = DBManager.getConnection()){
 			String sql =
@@ -90,6 +91,58 @@ public class MuttersDAO {
 			e.printStackTrace();
 			return null;
 		}return mutterList;
+	}
+	
+	//編集（アップデート）機能
+	public boolean update(int id, String text){
+		try(Connection conn = DBManager.getConnection()){
+			String sql =
+				"""
+				UPDATE mutters 
+				SET text = ? 
+				WHERE id = ?
+				""";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, text);
+			pStmt.setInt(2, id);
+			//INSERT文を実行（resultには追加された行数が代入される）
+			int result = pStmt.executeUpdate();
+			if(result != 1) {
+				return false;
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	//idから検索してつぶやきを返す機能
+	public Mutter findById(int id){
+		Mutter mutter = new Mutter();
+		try(Connection conn = DBManager.getConnection()){
+			String sql =
+				"""
+				SELECT m.id, m.user_id, a.name, m.text FROM mutters m
+				JOIN accounts a ON (a.id = m.user_id)
+				WHERE m.id = ?
+				;
+				""";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setInt(1, id);
+			//SELECTを実行
+			ResultSet rs = pStmt.executeQuery();
+			//SELECT文の結果をmutterに格納
+			if (rs.next()){
+				mutter.setId(rs.getInt("ID"));
+				mutter.setUserId(rs.getInt("USER_ID"));
+				mutter.setUserName(rs.getString("NAME"));
+				mutter.setText(rs.getString("TEXT"));
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+			return null;
+		}return mutter;
 	}
 
 }
