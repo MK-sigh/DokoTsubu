@@ -8,7 +8,6 @@ User loginUser = (User) session.getAttribute("loginUser");
 List<Mutter> mutterList = (List<Mutter>)request.getAttribute("mutterList");
 //リクエストスコープに保存されたエラーメッセージを取得
 String errorMsg = (String)request.getAttribute("errorMsg");
-%>
 
 <!DOCTYPE html>
 <html>
@@ -18,7 +17,11 @@ String errorMsg = (String)request.getAttribute("errorMsg");
 </head>
 <body>
 <h1>Dokotsubu main</h1>
-<%= loginUser.getName() %>さんでログイン中...</p>
+<p>
+<% if(loginUser != null){ %>
+  <%= loginUser.getName() %>
+<% } %>
+さんでログイン中...</p>
 <a href= "Logout">logout</a>
 <p><a href="Main">update</a></p>
 

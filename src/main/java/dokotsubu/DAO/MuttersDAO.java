@@ -150,7 +150,7 @@ public class MuttersDAO {
 		try(Connection conn = DBManager.getConnection()){
 			String sql =
 				"""
-				DELETE mutters
+				DELETE FROM mutters
 				WHERE id = ?
 				""";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
