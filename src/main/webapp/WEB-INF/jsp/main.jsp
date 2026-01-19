@@ -18,27 +18,43 @@ String errorMsg = (String)request.getAttribute("errorMsg");
 </head>
 <body>
 <h1>Dokotsubu main</h1>
-<p><%= loginUser.getName() %>,login now.</p>
+<><%= loginUser.getName() %>,login now.</p>
 <a href= "Logout">logout</a>
 <p><a href="Main">update</a></p>
 
 <form action="Search" method="post">
-<input type="text" name="keyword">
-<input type="submit" value="検索">
+    <input type="text" name="keyword">
+    <input type="submit" value="検索">
 </form>
 
 <form action="Main" method="post">
-<input type="text" name="text">
-<input type="submit" value="mutter">
+    <input type="text" name="text">
+    <input type="submit" value="mutter">
 </form>
+<table border="1" style="border-collapse: collapse; width: 100%;">
+    <tr style="background-color: #f2f2f2;">
+        <th>ユーザー名</th>
+        <th>つぶやき内容</th>
+        <th>操作</th>
+    </tr>
+    <%if (mutterList != null && mutterList.size() > 0){%>
+        <% for (Mutter mutter : mutterList){ %>
+            <tr>
+                <td><%= mutter.getUserName() %></td>
+                <td><%= mutter.getText() %></td>
+                <td>
+                    <form action="Update" method="get" style="display: inline;">
+                        <input type="hidden" name="id" value="<%= mutter.getId()%>">
+                        <input type="submit" value="編集">
+                    </form>
 
-<%if (mutterList != null && mutterList.size() > 0){%>
-    <% for (Mutter mutter : mutterList){ %>
-        <p><%= mutter.getUserName() %> : <%= mutter.getText() %></p>
-    <% } %>
-<% }else{%>
-    <p>つぶやきはありません。</p>
-<%} %>
+                </td>
+            </tr>
+        <% } %>
+    </table>
+    <%}else{%>
+        <p>つぶやきはありません。</p>
+    <%} %>
 <% if(errorMsg != null){ %>
 <p><%= errorMsg %></p>
 <% } %>
