@@ -29,6 +29,6 @@ Mutter mutter = (Mutter) request.getAttribute("mutter");
 
     <form action="Update" method="post" style="display: inline;">
         <input type="hidden" name="id" value="<%= mutter.getId()%>">
-        <input type="text" name="text" value="編集内容を記載してください">
+        <input type="text" name="text" style="width: 100%; max-width: 500px; padding: 10px;">
         <input type="submit" value="編集">
     </form>

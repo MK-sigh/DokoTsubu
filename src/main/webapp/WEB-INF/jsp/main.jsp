@@ -18,7 +18,7 @@ String errorMsg = (String)request.getAttribute("errorMsg");
 </head>
 <body>
 <h1>Dokotsubu main</h1>
-<><%= loginUser.getName() %>,login now.</p>
+<%= loginUser.getName() %>さんでログイン中...</p>
 <a href= "Logout">logout</a>
 <p><a href="Main">update</a></p>
 
@@ -28,7 +28,7 @@ String errorMsg = (String)request.getAttribute("errorMsg");
 </form>
 
 <form action="Main" method="post">
-    <input type="text" name="text">
+    <input type="text" name="text" style="width: 100%; max-width: 500px; padding: 10px;">
     <input type="submit" value="mutter">
 </form>
 <table border="1" style="border-collapse: collapse; width: 100%;">
@@ -47,7 +47,11 @@ String errorMsg = (String)request.getAttribute("errorMsg");
                         <input type="hidden" name="id" value="<%= mutter.getId()%>">
                         <input type="submit" value="編集">
                     </form>
-
+                    <form action="Delete" method="post" 
+                        onsubmit="return confirm('本当に削除してもよろしいですか？');" style="display: inline;">
+                        <input type="hidden" name="id" value="<%= mutter.getId()%>">
+                        <input type="submit" value="削除">
+                    </form>
                 </td>
             </tr>
         <% } %>
