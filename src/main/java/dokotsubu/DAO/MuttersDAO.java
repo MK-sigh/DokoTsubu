@@ -145,4 +145,24 @@ public class MuttersDAO {
 		}return mutter;
 	}
 
+	//削除機能
+	public boolean delete(int id){
+		try(Connection conn = DBManager.getConnection()){
+			String sql =
+				"""
+				DELETE mutters
+				WHERE id = ?
+				""";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setInt(1, id);
+			int result = pStmt.executeUpdate();
+			if(result != 1) {
+				return false;
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
 }
