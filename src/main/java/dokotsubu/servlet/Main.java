@@ -62,8 +62,10 @@ public class Main extends HttpServlet {
 			//呟きを生成してつぶやきリストに追加
 			Mutter mutter = new Mutter (loginUser.getId(),text);
 			PostMutterLogic postMutterLogic = new PostMutterLogic();
-			postMutterLogic.execute(mutter);
-			
+			boolean result = postMutterLogic.execute(mutter);
+			if (!result){
+				request.setAttribute("errorMsg", "投稿に失敗しました。");
+			}
 		}else {
 			//エラーメッセージをリクエストスコープに保存
 			request.setAttribute("errorMsg", "no mutter");

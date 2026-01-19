@@ -49,7 +49,10 @@ public class DeleteMutter extends HttpServlet{
         if(mutter.getUserId() == loginUser.getId()){
             //正常：削除処理
             DeleteMutterLogic deleteMutterLogic = new DeleteMutterLogic();
-            deleteMutterLogic.execute(id);
+            boolean result = deleteMutterLogic.execute(id);
+            if(!result){
+                request.setAttribute("errorMsg", "削除に失敗しました");
+            }
             //つぶやきリストを取得して、リクエストスコープに保存
             GetMutterListLogic getMutterListLogic = new GetMutterListLogic();
             List<Mutter> mutterList = getMutterListLogic.execute();

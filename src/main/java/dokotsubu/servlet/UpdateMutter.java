@@ -70,7 +70,10 @@ public class UpdateMutter extends HttpServlet{
 		
 		if (text != null && text.length() !=0) {
                   UpdateMutterLogic updateMutterLogic = new UpdateMutterLogic();
-                  updateMutterLogic.execute(id, text);
+                  boolean result = updateMutterLogic.execute(id, text);
+                  if (!result){
+                        request.setAttribute("errorMsg", "更新に失敗しました。");
+                  }
 
             }else {
 			//エラーメッセージをリクエストスコープに保存

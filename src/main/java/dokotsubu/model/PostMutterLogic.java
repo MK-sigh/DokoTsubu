@@ -2,9 +2,9 @@ package dokotsubu.model;
 import dokotsubu.DAO.MuttersDAO;
 
 public class PostMutterLogic {
-	public void execute( Mutter mutter) {
+	public boolean execute( Mutter mutter) {
 		MuttersDAO dao = new MuttersDAO();
-		dao.create(mutter);
+		return dao.create(mutter);
 	}
 
 }
