@@ -26,7 +26,7 @@ public class SearchMutter extends HttpServlet{
 		//入力値☑
 		if (keyword != null && keyword.length() !=0) {
             MuttersDAO dao = new MuttersDAO();
-            List<Mutter> mutterList = dao.searchMutter(keyword);
+            List<Mutter> mutterList = dao.search(keyword);
             request.setAttribute("mutterList", mutterList);
 
 			
