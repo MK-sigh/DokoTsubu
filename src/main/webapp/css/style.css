@@ -1,0 +1,24 @@
+
+/* つぶやき入力欄を長く、おしゃれにする */
+input[type="text"] {
+    width: 100%;
+    max-width: 500px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* 削除ボタンを赤くする */
+input[value="削除"] {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+/* ボタンにマウスを乗せた時の動き */
+input[type="submit"]:hover {
+    opacity: 0.8;
+}

@@ -9,20 +9,21 @@ String errorMsg = (String) request.getAttribute("errorMsg");
 %>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>どこつぶ</title>
-</head>
-<body>
-<h1>どこつぶログイン</h1>
-<% if(loginUser != null) { %>
-  <p>ログインに成功しました</p>
-  <p>ようこそ<%= loginUser.getName() %>さん</p>
-  <a href="Main">つぶやき投稿・閲覧へ</a>
-<% } else { %>
-  <p>ログインに失敗しました</p>
-  <p style="color:red"><%= errorMsg %></p>
-  <a href="index.jsp">TOPへ</a>
-<% } %>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <title>どこつぶ</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+  </head>
+  <body>
+    <h1>どこつぶログイン</h1>
+    <% if(loginUser != null) { %>
+      <p>ログインに成功しました</p>
+      <p>ようこそ<%= loginUser.getName() %>さん</p>
+      <a href="Main">つぶやき投稿・閲覧へ</a>
+    <% } else { %>
+      <p>ログインに失敗しました</p>
+      <p style="color:red"><%= errorMsg %></p>
+      <a href="index.jsp">TOPへ</a>
+    <% } %>
+  </body>
 </html>

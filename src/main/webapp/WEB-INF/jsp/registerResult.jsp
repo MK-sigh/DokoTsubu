@@ -3,12 +3,13 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>ユーザー登録完了</title>
-</head>
-<body>
-<h1>ユーザー登録完了しました。</h1>
-<p style="padding-bottom: 10px;"><a href="/dokoTsubu">TOPへ</a></p>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>ユーザー登録完了</title>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    </head>
+    <body>
+        <h1>ユーザー登録完了しました。</h1>
+        <p style="padding-bottom: 10px;"><a href="/dokoTsubu">TOPへ</a></p>
+    </body>
 </html>

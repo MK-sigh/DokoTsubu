@@ -9,6 +9,7 @@ String errorMsg = (String) request.getAttribute("errorMsg");
     <head>
         <meta charset="UTF-8">
         <title>ユーザー登録</title>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     </head>
     <body>
         <h1>ユーザー登録</h1>
