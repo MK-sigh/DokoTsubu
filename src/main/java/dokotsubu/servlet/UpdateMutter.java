@@ -24,7 +24,16 @@ public class UpdateMutter extends HttpServlet{
       protected void doGet (HttpServletRequest request,HttpServletResponse response)
         throws ServletException, IOException{
             //パラメータ取得
-            int id = Integer.parseInt(request.getParameter("id"));
+            //idの値チェック＆キャスト
+            String idStr = request.getParameter("id");
+            if (idStr == null || !idStr.matches("^[1-9][0-9]*$")) {
+                  request.setAttribute("errorMsg", "不正なIDです");
+                  RequestDispatcher dispatcher =
+                  request.getRequestDispatcher("WEB-INF/jsp/main.jsp");
+                  dispatcher.forward(request, response);
+                  return;
+            }
+            int id = Integer.parseInt(idStr);
             MuttersDAO muttersDao = new MuttersDAO();
             Mutter mutter = muttersDao.findById(id);
             //存在チェック
@@ -65,7 +74,16 @@ public class UpdateMutter extends HttpServlet{
         throws ServletException, IOException{
         //リクエストパラメータの取得
         request.setCharacterEncoding("UTF-8");
-        int id = Integer.parseInt(request.getParameter("id"));
+        //idの値チェック＆キャスト
+        String idStr = request.getParameter("id");
+        if (idStr == null || !idStr.matches("^[1-9][0-9]*$")) {
+            request.setAttribute("errorMsg", "不正なIDです");
+            RequestDispatcher dispatcher =
+                request.getRequestDispatcher("WEB-INF/jsp/main.jsp");
+            dispatcher.forward(request, response);
+            return;
+        }
+        int id = Integer.parseInt(idStr);
         String text = request.getParameter("text");
 		
 		if (text != null && text.length() !=0) {
