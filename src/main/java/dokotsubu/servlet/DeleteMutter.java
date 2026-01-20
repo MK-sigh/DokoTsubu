@@ -42,7 +42,7 @@ public class DeleteMutter extends HttpServlet{
         //ログインチェック
         if (loginUser == null) {
             request.setAttribute("errorMsg", "ログインが必要です。");
-            response.sendRedirect("/WEB-INF/jsp/index.jsp");
+            response.sendRedirect("index.jsp");
             return;
         }
         //ユーザー照合

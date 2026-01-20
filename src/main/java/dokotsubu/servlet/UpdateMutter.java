@@ -69,12 +69,30 @@ public class UpdateMutter extends HttpServlet{
         String text = request.getParameter("text");
 		
 		if (text != null && text.length() !=0) {
-                  UpdateMutterLogic updateMutterLogic = new UpdateMutterLogic();
-                  boolean result = updateMutterLogic.execute(id, text);
-                  if (!result){
-                        request.setAttribute("errorMsg", "更新に失敗しました。");
+                  //セッションスコープに保存されたユーザー情報を取得
+                  HttpSession session = request.getSession();
+                  User loginUser = (User) session.getAttribute("loginUser");
+                  //ログインチェック
+                  if (loginUser == null) {
+                        request.setAttribute("errorMsg", "ログインが必要です。");
+                        response.sendRedirect("index.jsp");
+                        return;
                   }
-
+                  //ユーザー照合
+                  if(id == loginUser.getId()){
+                        //正常：編集作業を行う
+                        UpdateMutterLogic updateMutterLogic = new UpdateMutterLogic();
+                        boolean result = updateMutterLogic.execute(id, text);
+                        if (!result){
+                              request.setAttribute("errorMsg", "更新に失敗しました。");
+                        }
+                  }else{
+                        //異常：メイン画面にフォワード
+                        request.setAttribute("errorMsg", "自分以外のつぶやきは編集できません。");
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
+                        dispatcher.forward(request, response);
+                        return;
+                  }
             }else {
 			//エラーメッセージをリクエストスコープに保存
 			request.setAttribute("errorMsg", "テキストが入力されていません。");
