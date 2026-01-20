@@ -1,4 +1,6 @@
 # ちょっとつよくなったDokoTsubu
+  
+<img width="1412" height="765" alt="削除機能" src="https://github.com/user-attachments/assets/64f62e5c-47c4-4125-a65a-446c5491bfd3" />
 
 ## 概要
 DokoTsubu（どこつぶ）は、ユーザー登録・ログイン機能付きの簡易つぶやき投稿アプリです。ユーザーは自分のつぶやきを投稿・編集・削除でき、他のユーザーのつぶやきも閲覧可能です。
