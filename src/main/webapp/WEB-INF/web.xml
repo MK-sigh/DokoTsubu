@@ -11,7 +11,14 @@
     
     <!--セッションが 15分間操作されなければ無効化-->
     <session-config>
-    <session-timeout>15</session-timeout> <!-- 単位は分 -->
+        <session-timeout>15</session-timeout> <!-- 単位は分 -->
+    </session-config>
+
+    <session-config>
+        <cookie-config>
+            <http-only>true</http-only><!--JavaScript からのアクセス禁止-->
+            <secure>false</secure><!--HTTPS 通信時のみ送信/開発環境ではoff-->
+        </cookie-config>
     </session-config>
 
 
