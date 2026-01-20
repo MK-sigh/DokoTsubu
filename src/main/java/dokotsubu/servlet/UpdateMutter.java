@@ -17,7 +17,7 @@ import dokotsubu.model.Mutter;
 import dokotsubu.model.UpdateMutterLogic;
 import dokotsubu.model.User;
 
-@WebServlet ("/Update")
+@WebServlet ("/app/Update")
 public class UpdateMutter extends HttpServlet{
     private static final long serialVersionUID = 1L;
 

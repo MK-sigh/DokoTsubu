@@ -17,7 +17,7 @@ import dokotsubu.model.GetMutterListLogic;
 import dokotsubu.model.Mutter;
 import dokotsubu.model.User;
 
-@WebServlet ("/Delete")
+@WebServlet ("/app/Delete")
 public class DeleteMutter extends HttpServlet{
     private static final long serialVersionUID = 1L;
 

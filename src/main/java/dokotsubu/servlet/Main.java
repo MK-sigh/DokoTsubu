@@ -16,7 +16,7 @@ import dokotsubu.model.Mutter;
 import dokotsubu.model.PostMutterLogic;
 import dokotsubu.model.User;
 
-@WebServlet("/Main")
+@WebServlet("/app/Main")
 public class Main extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -29,7 +29,7 @@ public class Main extends HttpServlet {
 		request.setAttribute("mutterList", mutterList);
 		if (mutterList == null){
 			//エラーメッセージをリクエストスコープに保存
-			request.setAttribute("errorMsg", "no mutter");
+			request.setAttribute("errorMsg", "つぶやきはありません。");
 			return;}
 
 		//ログインしているか確認するためセッションスコープからユーザー情報を取得
@@ -68,7 +68,7 @@ public class Main extends HttpServlet {
 			}
 		}else {
 			//エラーメッセージをリクエストスコープに保存
-			request.setAttribute("errorMsg", "no mutter");
+			request.setAttribute("errorMsg", "つぶやけませんでした。");
 		}
 		
 		//つぶやきリストを取得して、リクエストスコープに保存

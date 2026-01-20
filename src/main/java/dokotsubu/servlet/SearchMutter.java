@@ -14,7 +14,7 @@ import dokotsubu.DAO.MuttersDAO;
 import dokotsubu.model.GetMutterListLogic;
 import dokotsubu.model.Mutter;
 
-@WebServlet ("/Search")
+@WebServlet ("/app/Search")
 public class SearchMutter extends HttpServlet{
     private static final long serialVersionUID = 1L;
     protected void doPost (HttpServletRequest request,HttpServletResponse response)
