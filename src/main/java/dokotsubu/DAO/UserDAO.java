@@ -8,8 +8,11 @@ import java.sql.SQLException;
 import dokotsubu.model.User;
 import dokotsubu.util.DBManager;
 import org.mindrot.jbcrypt.BCrypt;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class UserDAO {
+    private static final Logger logger =LoggerFactory.getLogger(UserDAO.class);
     //ユーザー登録
     public boolean registerUser(User user){
         try(Connection conn = DBManager.getConnection()){
@@ -24,8 +27,8 @@ public class UserDAO {
                 return false;
             }
         }catch (SQLException e){
-            e.printStackTrace();
-            return false;
+            logger.error("ユーザー登録処理でDBエラーが発生しました", e);
+            throw new RuntimeException("DB_ERROR");
         }
         return true;
     }
@@ -50,8 +53,8 @@ public class UserDAO {
             }
             return null;
         }catch(SQLException e){
-            e.printStackTrace();
-            return null;
+            logger.error("ユーザー検索処理でDBエラーが発生しました", e);
+            throw new RuntimeException("DB_ERROR");
         }
     }
 }

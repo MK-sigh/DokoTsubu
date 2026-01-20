@@ -5,9 +5,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class DBManager {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+public class DBManager {
+    private static final Logger logger = LoggerFactory.getLogger(DBManager.class);
     private static Properties props = new Properties();
+
     static {
         // クラスロード時に一度だけファイルを読み込む
         try (InputStream is =
@@ -21,7 +25,8 @@ public class DBManager {
             }catch (ClassNotFoundException e) {
             throw new IllegalStateException("JDBCが読み込めませんでした");}
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("ユーザー検索処理でDBエラーが発生しました", e);
+            throw new RuntimeException("DB_ERROR");
         }
     }
 

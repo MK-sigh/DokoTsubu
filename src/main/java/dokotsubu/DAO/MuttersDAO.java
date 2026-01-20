@@ -8,8 +8,12 @@ import java.util.List;
 
 import dokotsubu.model.Mutter;
 import dokotsubu.util.DBManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MuttersDAO {
+	private static final Logger logger = LoggerFactory.getLogger(MuttersDAO.class);
+
 	//全投稿取得
 	public List<Mutter> findAll(){
 		List<Mutter> mutterList = new ArrayList<Mutter>();
@@ -36,8 +40,8 @@ public class MuttersDAO {
 				mutterList.add(mutter);
 			}
 		}catch(SQLException e) {
-			e.printStackTrace();
-			return null;
+			logger.error("つぶやき検索処理でDBエラーが発生しました", e);
+			throw new RuntimeException("DB_ERROR");
 		}
 		return mutterList;
 	}
@@ -58,8 +62,8 @@ public class MuttersDAO {
 				return false;
 			}
 		}catch (SQLException e) {
-			e.printStackTrace();
-			return false;
+			logger.error("つぶやき投稿処理でDBエラーが発生しました", e);
+			throw new RuntimeException("DB_ERROR");
 		}
 		return true;
 	}
@@ -88,8 +92,8 @@ public class MuttersDAO {
 				mutterList.add(mutter);
 			}
 		}catch(SQLException e){
-			e.printStackTrace();
-			return null;
+			logger.error("つぶやき検索処理でDBエラーが発生しました", e);
+			throw new RuntimeException("DB_ERROR");
 		}return mutterList;
 	}
 	
@@ -111,8 +115,8 @@ public class MuttersDAO {
 				return false;
 			}
 		}catch (SQLException e) {
-			e.printStackTrace();
-			return false;
+			logger.error("つぶやき編集処理でDBエラーが発生しました", e);
+			throw new RuntimeException("DB_ERROR");
 		}
 		return true;
 	}
@@ -140,8 +144,8 @@ public class MuttersDAO {
 				mutter.setText(rs.getString("TEXT"));
 			}
 		}catch(SQLException e){
-			e.printStackTrace();
-			return null;
+			logger.error("つぶやき検索処理でDBエラーが発生しました", e);
+			throw new RuntimeException("DB_ERROR");
 		}return mutter;
 	}
 
@@ -160,8 +164,8 @@ public class MuttersDAO {
 				return false;
 			}
 		}catch (SQLException e) {
-			e.printStackTrace();
-			return false;
+			logger.error("つぶやき削除処理でDBエラーが発生しました", e);
+			throw new RuntimeException("DB_ERROR");
 		}
 		return true;
 	}
