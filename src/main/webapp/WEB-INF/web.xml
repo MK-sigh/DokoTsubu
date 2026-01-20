@@ -8,5 +8,11 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+    
+    <!--セッションが 15分間操作されなければ無効化-->
+    <session-config>
+    <session-timeout>15</session-timeout> <!-- 単位は分 -->
+    </session-config>
+
 
 </web-app>
