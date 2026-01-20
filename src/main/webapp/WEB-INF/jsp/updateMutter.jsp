@@ -29,9 +29,10 @@ Mutter mutter = (Mutter) request.getAttribute("mutter");
         </table>
 
 
-        <form action="Update" method="post" style="display: inline;">
+        <form action="<%= request.getContextPath() %>/app/Update" method="post" style="display: inline;">
             <input type="hidden" name="id" value="<%= mutter.getId()%>">
             <input type="text" name="text" style="width: 100%; max-width: 500px; padding: 10px;">
+            <input type="hidden" name="csrfToken" value="<%= session.getAttribute("csrfToken") %>">
             <input type="submit" value="編集">
         </form>
     </body>

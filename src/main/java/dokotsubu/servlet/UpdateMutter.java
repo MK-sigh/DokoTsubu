@@ -31,7 +31,7 @@ public class UpdateMutter extends HttpServlet{
             if (mutter == null) {
                   request.setAttribute("errorMsg", "指定されたつぶやきは存在しません。");
                   //メイン画面にフォワード
-                  RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/main.jsp");
+                  RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
                   dispatcher.forward(request, response);
                   return;
             }
@@ -49,12 +49,12 @@ public class UpdateMutter extends HttpServlet{
             if(mutter.getUserId() == loginUser.getId()){
                   //正常：編集フォームを表示する
                   request.setAttribute("mutter", mutter);
-                  RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/updateMutter.jsp");
+                  RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/updateMutter.jsp");
                   dispatcher.forward(request, response);
             }else{
                   //異常：メイン画面にフォワード
                   request.setAttribute("errorMsg", "自分以外のつぶやきは編集できません。");
-                  RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/main.jsp");
+                  RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
                   dispatcher.forward(request, response);
                   return;
             }
@@ -86,7 +86,7 @@ public class UpdateMutter extends HttpServlet{
 		request.setAttribute("mutterList", mutterList);
 
 		//メイン画面にフォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/main.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
 		dispatcher.forward(request, response);
 	}
 }

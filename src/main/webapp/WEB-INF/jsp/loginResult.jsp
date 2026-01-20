@@ -19,7 +19,7 @@ String errorMsg = (String) request.getAttribute("errorMsg");
     <% if(loginUser != null) { %>
       <p>ログインに成功しました</p>
       <p>ようこそ<%= loginUser.getName() %>さん</p>
-      <a href="Main">つぶやき投稿・閲覧へ</a>
+      <a href="<%= request.getContextPath() %>/app/Main">つぶやき投稿・閲覧へ</a>
     <% } else { %>
       <p>ログインに失敗しました</p>
       <p style="color:red"><%= errorMsg %></p>

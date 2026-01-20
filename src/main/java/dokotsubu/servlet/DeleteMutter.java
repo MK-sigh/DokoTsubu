@@ -31,7 +31,7 @@ public class DeleteMutter extends HttpServlet{
         if (mutter == null) {
             request.setAttribute("errorMsg", "指定されたつぶやきは存在しません。");
             //メイン画面にフォワード
-            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/main.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
             dispatcher.forward(request, response);
             return;
         }
@@ -42,7 +42,7 @@ public class DeleteMutter extends HttpServlet{
         //ログインチェック
         if (loginUser == null) {
             request.setAttribute("errorMsg", "ログインが必要です。");
-            response.sendRedirect("WEB-INF/jsp/index.jsp");
+            response.sendRedirect("/WEB-INF/jsp/index.jsp");
             return;
         }
         //ユーザー照合
@@ -61,7 +61,7 @@ public class DeleteMutter extends HttpServlet{
             //異常：エラーメッセージ
             request.setAttribute("errorMsg", "自分以外のつぶやきは削除できません。");
         }
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/main.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
         dispatcher.forward(request, response);
     }
     

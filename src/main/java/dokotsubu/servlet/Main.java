@@ -42,7 +42,7 @@ public class Main extends HttpServlet {
 		}else {
 			//ログイン済みの場合フォワード
 			RequestDispatcher dispatcher =
-					request.getRequestDispatcher("WEB-INF/jsp/main.jsp");
+					request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
 			dispatcher.forward(request, response);
 		}
 	}
@@ -78,7 +78,7 @@ public class Main extends HttpServlet {
 		
 		//メイン画面にフォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher
-				("WEB-INF/jsp/main.jsp");
+				("/WEB-INF/jsp/main.jsp");
 		dispatcher.forward(request, response);
 	}
 }

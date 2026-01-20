@@ -25,18 +25,20 @@ String errorMsg = (String)request.getAttribute("errorMsg");
         <%= loginUser.getName() %>
         <% } %>
         さんでログイン中...</p>
-        <a href= "Logout" style="padding: 5px 10px; background-color: #eee; text-decoration: none; border-radius: 4px;">ログアウト</a>
+        <a href= "<%= request.getContextPath() %>/app/Logout" style="padding: 5px 10px; background-color: #eee; text-decoration: none; border-radius: 4px;">ログアウト</a>
         <p style="margin-bottom: 20px;">
-            <a href="Main" style="padding: 5px 10px; background-color: #eee; text-decoration: none; border-radius: 4px;">更新</a>
+            <a href="<%= request.getContextPath() %>/app/Main" style="padding: 5px 10px; background-color: #eee; text-decoration: none; border-radius: 4px;">更新</a>
         </p>
         <div style="display: flex; flex-direction: column; gap: 15px;">
-            <form action="Search" method="post">
+            <form action="<%= request.getContextPath() %>/app/Search" method="post">
                 <input type="text" name="keyword">
                 <input type="submit" value="検索">
+                <input type="hidden" name="csrfToken" value="<%= session.getAttribute("csrfToken") %>">
             </form>
 
-            <form action="Main" method="post" style="margin-bottom: 20px;">
+            <form action="<%= request.getContextPath() %>/app/Main" method="post" style="margin-bottom: 20px;">
                 <input type="text" name="text">
+                <input type="hidden" name="csrfToken" value="<%= session.getAttribute("csrfToken") %>">
                 <input type="submit" value="つぶやく">
             </form>
         </div>
@@ -52,13 +54,15 @@ String errorMsg = (String)request.getAttribute("errorMsg");
                         <td><%= StringEscapeUtils.escapeHtml4(mutter.getUserName()) %></td>
                         <td><%= StringEscapeUtils.escapeHtml4(mutter.getText()) %></td>
                         <td>
-                            <form action="Update" method="get" style="display: inline;">
+                            <form action="<%= request.getContextPath() %>/app/Update" method="get" style="display: inline;">
                                 <input type="hidden" name="id" value="<%= mutter.getId()%>">
+                                <input type="hidden" name="csrfToken" value="<%= session.getAttribute("csrfToken") %>">
                                 <input type="submit" value="編集">
                             </form>
-                            <form action="Delete" method="post" 
+                            <form action="<%= request.getContextPath() %>/app/Delete" method="post" 
                                 onsubmit="return confirm('本当に削除してもよろしいですか？');" style="display: inline;">
                                 <input type="hidden" name="id" value="<%= mutter.getId()%>">
+                                <input type="hidden" name="csrfToken" value="<%= session.getAttribute("csrfToken") %>">
                                 <input type="submit" value="削除">
                             </form>
                         </td>

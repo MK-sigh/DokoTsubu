@@ -39,7 +39,7 @@ public class SearchMutter extends HttpServlet{
 
 		//メイン画面にフォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher
-				("WEB-INF/jsp/main.jsp");
+				("/WEB-INF/jsp/main.jsp");
 		dispatcher.forward(request, response);
 	}
 }

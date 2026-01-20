@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebServlet("/main/Logout")
+@WebServlet("/app/Logout")
 public class Logout extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -22,7 +22,7 @@ public class Logout extends HttpServlet {
 		
 		//ログアウト画面にフォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher
-				("WEB-INF/jsp/logout.jsp");
+				("/WEB-INF/jsp/logout.jsp");
 		dispatcher.forward(request, response);
 		
 	}

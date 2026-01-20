@@ -17,7 +17,7 @@ public class Register extends HttpServlet{
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException{
         //登録フォームを表示する
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/registerView.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/registerView.jsp");
         dispatcher.forward(request, response);
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -37,19 +37,19 @@ public class Register extends HttpServlet{
             //登録できた場合
             if(result){
                 //登録完了画面にフォワード
-                RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/registerResult.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/registerResult.jsp");
                 dispatcher.forward(request, response);
             }else{
                 //エラーメッセージをリクエストスコープに保存
                 request.setAttribute("errorMsg","登録できませんでした。最初からやり直してください。");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/registerView.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/registerView.jsp");
                 dispatcher.forward(request, response);
 
             }
             }else{
                 //どちらか入力されていなければエラーメッセージ
                 request.setAttribute("errorMsg","必須項目が未入力です。");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/registerView.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/registerView.jsp");
                 dispatcher.forward(request, response);
             }
 
