@@ -36,6 +36,11 @@ public class Login extends HttpServlet {
 			//ログイン処理
 			if (findUser != null) {
 				// ログイン成功時：ユーザー情報をセッションに保存
+				HttpSession oldSession = request.getSession(false);
+				if (oldSession != null) {
+					oldSession.invalidate();  // セッションを破棄
+				}
+				    // 新しいセッションを作成
 				HttpSession session = request.getSession();
 				session.setAttribute("loginUser", findUser);
 			}else{
