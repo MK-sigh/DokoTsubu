@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="org.apache.commons.text.StringEscapeUtils" %>
 <%@ page import="dokotsubu.model.Mutter" %>
 <%
 //リクエストスコープ取得
@@ -22,8 +23,8 @@ Mutter mutter = (Mutter) request.getAttribute("mutter");
                 <th>つぶやき内容</th>
             </tr>
             <tr>
-                <td><%= mutter.getUserName() %></td>
-                <td><%= mutter.getText() %></td>
+                <td><%= StringEscapeUtils.escapeHtml4(mutter.getUserName()) %></td>
+                <td><%= StringEscapeUtils.escapeHtml4(mutter.getText()) %></td>
             </tr>
         </table>
 

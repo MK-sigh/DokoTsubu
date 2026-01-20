@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="org.apache.commons.text.StringEscapeUtils" %>
 <%@ page import="dokotsubu.model.User, dokotsubu.model.Mutter, java.util.List" %>
 <%
 //セッションスコープに保存されたユーザー情報を取得
@@ -48,8 +49,8 @@ String errorMsg = (String)request.getAttribute("errorMsg");
             <%if (mutterList != null && mutterList.size() > 0){%>
                 <% for (Mutter mutter : mutterList){ %>
                     <tr>
-                        <td><%= mutter.getUserName() %></td>
-                        <td><%= mutter.getText() %></td>
+                        <td><%= StringEscapeUtils.escapeHtml4(mutter.getUserName()) %></td>
+                        <td><%= StringEscapeUtils.escapeHtml4(mutter.getText()) %></td>
                         <td>
                             <form action="Update" method="get" style="display: inline;">
                                 <input type="hidden" name="id" value="<%= mutter.getId()%>">
