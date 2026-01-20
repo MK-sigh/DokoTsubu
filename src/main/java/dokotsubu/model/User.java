@@ -12,6 +12,11 @@ public class User implements Serializable{
         this.name = name;
         this.pass = pass;
     }
+    //id.name
+    public User (int id, String name){
+        this.id = id;
+        this.name = name;
+    }
     //フルデータ用
     public User (int id, String name, String pass){
         this.id = id;

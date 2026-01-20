@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import dokotsubu.model.User;
 import dokotsubu.util.DBManager;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class UserDAO {
     //ユーザー登録
@@ -32,19 +33,20 @@ public class UserDAO {
     //ユーザー情報の存在チェック
     public User findUser(User user){
             try(Connection conn = DBManager.getConnection()){
-                String sql = "SELECT* FROM ACCOUNTS WHERE NAME=? AND PASS=?";
+                String sql = "SELECT* FROM ACCOUNTS WHERE NAME=?";
                 PreparedStatement pStmt = conn.prepareStatement(sql);
                 pStmt.setString(1, user.getName());
-                pStmt.setString(2, user.getPass());
 
             ResultSet rs = pStmt.executeQuery();
 
             if (rs.next()){
-                int userId = rs.getInt("ID");
-                String name = rs.getString("NAME");
-                String pass = rs.getString("PASS");
-                user = new User(userId, name, pass);
-                return user;
+                String dbPass = rs.getString("PASS");
+                    if(BCrypt.checkpw(user.getPass(), dbPass)){
+                        int userId = rs.getInt("ID");
+                        String name = rs.getString("NAME");
+                        user = new User(userId, name);
+                        return user;
+                    }
             }
             return null;
         }catch(SQLException e){
