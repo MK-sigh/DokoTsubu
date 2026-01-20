@@ -43,6 +43,10 @@ public class Login extends HttpServlet {
 				    // 新しいセッションを作成
 				HttpSession session = request.getSession();
 				session.setAttribute("loginUser", findUser);
+				// CSRFトークン生成
+				String csrfToken = java.util.UUID.randomUUID().toString();
+				session.setAttribute("csrfToken", csrfToken);
+				
 			}else{
 				request.setAttribute("errorMsg", "パスワードが間違っているか、ユーザーが未登録です");
 			}
@@ -52,7 +56,7 @@ public class Login extends HttpServlet {
 		}
 		//ログイン結果画面にフォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher
-				("WEB-INF/jsp/loginResult.jsp");
+				("/WEB-INF/jsp/loginResult.jsp");
 		dispatcher.forward(request, response);
 	}
 
