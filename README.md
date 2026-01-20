@@ -18,7 +18,6 @@ DokoTsubu（どこつぶ）は、ユーザー登録・ログイン機能付き�
 - JSP
 - Maven
 - H2 Database
-- JSTL
 - Apache Commons Text
 - BCrypt
 
