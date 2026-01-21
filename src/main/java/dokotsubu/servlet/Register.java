@@ -11,6 +11,7 @@ import java.io.IOException;
 
 import dokotsubu.model.RegisterUserLogic;
 import dokotsubu.model.User;
+import dokotsubu.util.ValidationUtils;
 
 @WebServlet("/Register")
 public class Register extends HttpServlet{
@@ -20,40 +21,34 @@ public class Register extends HttpServlet{
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/registerView.jsp");
         dispatcher.forward(request, response);
     }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException{
+            throws ServletException, IOException{
         request.setCharacterEncoding("UTF-8");
-    //フォームデータを取得し、バリデーションを行う
-    String username = request.getParameter("username");
-    String password = request.getParameter("password");
-    // ユーザー名・パスワードがどちらも入力されている場合
-        if((username != null && username.length() != 0) && (password != null && password.length() != 0)) {
-            System.out.println("正常処理に入る");
-        	// ユーザーを作成し、データベースに保存する
-            User user = new User( username, password);
-            RegisterUserLogic registerUserLogic = new RegisterUserLogic();
-            boolean result = registerUserLogic.execute(user);
+        //フォームデータを取得し、バリデーションを行う
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        // ユーザー名・パスワードがどちらも入力されている場合
+        if(!ValidationUtils.validateName(request, response, username, "/WEB-INF/jsp/registerView.jsp"))return;
+        if(!ValidationUtils.validatePass(request, response, password, "/WEB-INF/jsp/registerView.jsp"))return;
+        System.out.println("正常処理に入る");
+        // ユーザーを作成し、データベースに保存する
+        User user = new User( username, password);
+        RegisterUserLogic registerUserLogic = new RegisterUserLogic();
+        boolean result = registerUserLogic.execute(user);
 
-            //登録できた場合
-            if(result){
-                //登録完了画面にフォワード
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/registerResult.jsp");
-                dispatcher.forward(request, response);
-            }else{
-                //エラーメッセージをリクエストスコープに保存
-                request.setAttribute("errorMsg","登録できませんでした。最初からやり直してください。");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/registerView.jsp");
-                dispatcher.forward(request, response);
-
-            }
-            }else{
-                //どちらか入力されていなければエラーメッセージ
-                request.setAttribute("errorMsg","必須項目が未入力です。");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/registerView.jsp");
-                dispatcher.forward(request, response);
-            }
+        //登録できた場合
+        if(result){
+            //登録完了画面にフォワード
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/registerResult.jsp");
+            dispatcher.forward(request, response);
+        }else{
+            //エラーメッセージをリクエストスコープに保存
+            request.setAttribute("errorMsg","登録できませんでした。最初からやり直してください。");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/registerView.jsp");
+            dispatcher.forward(request, response);
 
         }
-
     }
+}
 

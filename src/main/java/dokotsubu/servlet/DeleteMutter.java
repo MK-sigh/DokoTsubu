@@ -16,6 +16,7 @@ import dokotsubu.model.DeleteMutterLogic;
 import dokotsubu.model.GetMutterListLogic;
 import dokotsubu.model.Mutter;
 import dokotsubu.model.User;
+import dokotsubu.util.ValidationUtils;
 
 @WebServlet ("/app/Delete")
 public class DeleteMutter extends HttpServlet{
@@ -24,15 +25,10 @@ public class DeleteMutter extends HttpServlet{
     protected void doPost (HttpServletRequest request,HttpServletResponse response)
         throws ServletException, IOException{
         //パラメータ取得
-        //idの値チェック＆キャスト
+        //idのバリデーション
         String idStr = request.getParameter("id");
-        if (idStr == null || !idStr.matches("^[1-9][0-9]*$")) {
-            request.setAttribute("errorMsg", "不正なIDです");
-            RequestDispatcher dispatcher =
-                request.getRequestDispatcher("WEB-INF/jsp/main.jsp");
-            dispatcher.forward(request, response);
-            return;
-        }
+        if (!ValidationUtils.validateId(request, response, idStr, "/WEB-INF/jsp/main.jsp")) return;
+        // 正常ならキャスト
         int id = Integer.parseInt(idStr);
         MuttersDAO muttersDao = new MuttersDAO();
         Mutter mutter = muttersDao.findById(id);

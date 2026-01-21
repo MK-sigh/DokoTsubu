@@ -15,6 +15,7 @@ import dokotsubu.model.GetMutterListLogic;
 import dokotsubu.model.Mutter;
 import dokotsubu.model.PostMutterLogic;
 import dokotsubu.model.User;
+import dokotsubu.util.ValidationUtils;
 
 @WebServlet("/app/Main")
 public class Main extends HttpServlet {
@@ -53,22 +54,19 @@ public class Main extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String text = request.getParameter("text");
 		
-		//入力値☑
-		if (text != null && text.length() !=0) {
-			//セッションスコープに保存されたユーザー情報を取得
-			HttpSession session = request.getSession();
-			User loginUser = (User)session.getAttribute("loginUser");
-			
-			//呟きを生成してつぶやきリストに追加
-			Mutter mutter = new Mutter (loginUser.getId(),text);
-			PostMutterLogic postMutterLogic = new PostMutterLogic();
-			boolean result = postMutterLogic.execute(mutter);
-			if (!result){
-				request.setAttribute("errorMsg", "投稿に失敗しました。");
-			}
-		}else {
-			//エラーメッセージをリクエストスコープに保存
-			request.setAttribute("errorMsg", "つぶやけませんでした。");
+		//入力値バリデーション
+		if(!ValidationUtils.validateTextLength(request, response, text, "/WEB-INF/jsp/main.jsp"))return;
+
+		//セッションスコープに保存されたユーザー情報を取得
+		HttpSession session = request.getSession();
+		User loginUser = (User)session.getAttribute("loginUser");
+		
+		//呟きを生成してつぶやきリストに追加
+		Mutter mutter = new Mutter (loginUser.getId(),text);
+		PostMutterLogic postMutterLogic = new PostMutterLogic();
+		boolean result = postMutterLogic.execute(mutter);
+		if (!result){
+			request.setAttribute("errorMsg", "投稿に失敗しました。");
 		}
 		
 		//つぶやきリストを取得して、リクエストスコープに保存

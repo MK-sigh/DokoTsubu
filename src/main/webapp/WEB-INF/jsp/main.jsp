@@ -29,6 +29,7 @@ String errorMsg = (String)request.getAttribute("errorMsg");
         <p style="margin-bottom: 20px;">
             <a href="<%= request.getContextPath() %>/app/Main" style="padding: 5px 10px; background-color: #eee; text-decoration: none; border-radius: 4px;">更新</a>
         </p>
+        <p>本文は1〜140文字で入力してください。</p>
         <div style="display: flex; flex-direction: column; gap: 15px;">
             <form action="<%= request.getContextPath() %>/app/Search" method="post">
                 <input type="text" name="keyword">
@@ -42,6 +43,18 @@ String errorMsg = (String)request.getAttribute("errorMsg");
                 <input type="submit" value="つぶやく">
             </form>
         </div>
+
+        <%
+        List<String> errorMsgs = (List<String>) request.getAttribute("errorMsgs");
+        if (errorMsgs != null) {
+            for(String msg : errorMsgs){
+        %>
+        <p style="color:red;"><%= msg %></p>
+        <%
+            }
+        }
+        %>
+        
         <table border="1" style="border-collapse: collapse; width: 100%;">
             <tr style="background-color: #f2f2f2;">
                 <th>ユーザー名</th>
@@ -72,8 +85,6 @@ String errorMsg = (String)request.getAttribute("errorMsg");
             <%}else{%>
                 <p>つぶやきはありません。</p>
             <%} %>
-        <% if(errorMsg != null){ %>
-        <p><%= errorMsg %></p>
-        <% } %>
+
     </body>
 </html>
