@@ -1,93 +1,55 @@
 # ちょっとつよくなったDokoTsubu
   
-<img width="1412" height="765" alt="削除機能" src="https://github.com/user-attachments/assets/64f62e5c-47c4-4125-a65a-446c5491bfd3" />
+<img width="1412" height="765" alt="メイン画面" src="https://github.com/user-attachments/assets/64f62e5c-47c4-4125-a65a-446c5491bfd3" />
 
 ## 概要
-DokoTsubu（どこつぶ）は、ユーザー登録・ログイン機能付きの簡易つぶやき投稿アプリです。ユーザーは自分のつぶやきを投稿・編集・削除でき、他のユーザーのつぶやきも閲覧可能です。
+DokoTsubu（どこつぶ）は、ユーザー登録・ログイン機能付きの簡易つぶやき投稿アプリです。 
+書籍「スッキリわかるサーブレット＆JSP入門」に掲載された簡易なWebアプリにCRUD処理を追加し、セキュリティに関する処理を追加し、堅牢性を高めました。
+Java Servlet/JSPの基礎をベースにしつつ、実務レベルの**堅牢なセキュリティ対策**と**保守性の高い設計**を導入したポートフォリオ用プロジェクトです。
 
-セキュリティ面では、以下の対策が実装されています：
-- CSRFトークンによるPOSTリクエスト保護
-- セッション管理（ログイン時に古いセッション破棄＆新規セッション生成）
-- パスワードはBCryptでハッシュ化して保存
-- ログインフィルターで未ログインユーザーのアクセス制御
-- HTMLエスケープによるXSS攻撃防止
+## 主な特徴とセキュリティ実装
+一般的な学習用アプリを超え、以下の「実務で求められる防御策」を限界まで網羅しています。
+
+### 1. 認証・認可の徹底
+- **IDOR（不適切な直接オブジェクト参照）対策**: つぶやきの更新・削除実行時、リクエストパラメータのIDだけでなく、セッション上のユーザーIDとDB上の所有者IDが一致するかをサーバーサイドで再検証します。
+- **ログインフィルター**: 認証済みユーザーのみが `/app/*` 配下のリソースにアクセスできるよう制限。
+- **セッション固定化攻撃対策**: ログイン成功時に旧セッションを破棄し、新規セッションIDを再生成。
+
+### 2. セキュリティ・バイ・デザイン
+- **CSRF（クロスサイトリクエストフォージェリ）対策**: 全てのPOSTリクエスト（投稿・編集・削除）に対し、独自Filterでワンタイムトークンの妥当性を検証。
+- **XSS（クロスサイトスクリプティング）対策**: `StringEscapeUtils` による徹底したHTMLエスケープ。
+- **安全なパスワード管理**: `BCrypt` アルゴリズムによるソルト付きハッシュ化保存。
+- **Cookie保護**: `HttpOnly` および `Secure`（HTTPS環境下）フラグを設定し、JavaScriptからのセッション奪取を防止。
+
+### 3. 入力値バリデーションとポリシー
+- **厳格なバリデーション**: `ValidationUtils` を導入し、正規表現を用いたユーザー名・パスワード・投稿IDの形式チェックを実装。
+- **パスワードポリシー**: 英大文字・小文字・数字を組み合わせた8文字以上の複雑性を要求。
+
+### 4. 運用・保守性の向上
+- **ロギング**: 標準出力（e.printStackTrace）を廃止し、`SLF4J` + `Logback` による階層別ログ出力を導入。
+- **例外ハンドリング**: `NumberFormatException` 等の予期せぬ入力に対し、エラー画面への適切な誘導を行い、スタックトレースの露出を防止。
 
 ## 技術スタック
-- Java 17
-- Jakarta Servlet 5
-- JSP
-- Maven
-- H2 Database
-- Apache Commons Text
-- BCrypt
-
-## ディレクトリ構成
-```
-dokoTsubu/
-├─ src/main/java/dokotsubu/servlet/   # サーブレット
-├─ src/main/java/dokotsubu/model/     # ビジネスロジック・DTO
-├─ src/main/java/dokotsubu/DAO/       # データアクセスオブジェクト
-├─ src/main/java/dokotsubu/filter/    # フィルター（Login, CSRF）
-├─ src/main/java/dokotsubu/util/      # DBManager
-├─ src/main/webapp/WEB-INF/jsp/       # JSPファイル
-│   ├─ main.jsp
-│   ├─ updateMutter.jsp
-│   ├─ registerView.jsp
-│   ├─ registerResult.jsp
-│   ├─ loginResult.jsp
-│   └─ logout.jsp
-├─ src/main/webapp/index.jsp           # ログイン画面
-├─ src/main/webapp/css/style.css       # CSS
-├─ pom.xml
-└─ web.xml
-```
+- **Java 17** / **Jakarta Servlet 5.0** / **JSP**
+- **Build**: Maven
+- **DB**: H2 Database (Embedded mode)
+- **Library**: 
+  - Apache Commons Text (XSS対策)
+  - BCrypt (パスワードハッシュ化)
+  - Logback / SLF4J (ロギング)
+- **Server**: Apache Tomcat 10
 
 ## 主な機能
-### ユーザー登録
-- フォームからユーザー名とパスワードを入力
-- パスワードはBCryptでハッシュ化して保存
-- 登録後、登録完了画面へ遷移
+- **ユーザー管理**: 新規登録（バリデーション付）、ログイン・ログアウト、セッションタイムアウト（15分）。
+- **つぶやき管理**: 投稿、編集、削除（権限チェック付）、一覧表示。
+- **データ永続化**: JDBCによるDB操作。
 
-### ログイン
-- ユーザー名とパスワードで認証
-- 認証成功時は新しいセッション生成＆CSRFトークン生成
-- ログイン後メイン画面に遷移
+## セットアップ
+1. `mvn clean package` でWARファイルを生成。
+2. Tomcat等のサーブレットコンテナにデプロイ。
+3. `http://localhost:8080/dokoTsubu/` にアクセス。
 
-### つぶやき機能
-- 投稿: テキストを入力してつぶやき投稿（POST）
-- 編集: 自分のつぶやきのみ編集可能
-- 削除: 自分のつぶやきのみ削除可能
-- 検索: キーワードでつぶやきを検索
-
-### セキュリティ
-- CSRFトークンを全てのPOSTフォームに埋め込み
-- 未ログインユーザーのアクセスはLoginFilterで制御
-- ログイン時に既存セッション破棄、新規セッション生成
-- `StringEscapeUtils.escapeHtml4()`によるHTTPエスケープ
-- セッションタイムアウト（15分）設定済み
-
-## ビルド & デプロイ
-1. Mavenでビルド:
-```
-mvn clean package
-```
-2. WARファイルをTomcat等のServletコンテナにデプロイ
-3. `http://localhost:8080/dokoTsubu/` にアクセス
-
-## 既知の制限
-- タイムアウト時のエラーメッセージはまだ実装されていません
-- CSRFトークンはログイン時以外は生成されますが、ログアウト時の処理は簡易的です
-
-## データベース
-- H2 Database使用
-- テーブル例:
-```
-ACCOUNTS(ID INT AUTO_INCREMENT PRIMARY KEY, NAME VARCHAR(255), PASS VARCHAR(255));
-MUTTERS(ID INT AUTO_INCREMENT PRIMARY KEY, USER_ID INT, TEXT VARCHAR(255));
-```
-- DBManager.java で接続管理
-
-## 注意点
-- JSPファイルは `WEB-INF/jsp/` 配下に配置
-- ServletのURLパターンは `/app/*` に統一
-- フィルターでPOSTリクエストのCSRFチェックを行う
+## 今後の展望（セキュリティ強化案）
+- **レートリミット**: 同一IPからの短時間での大量投稿・ログイン試行の制限。
+- **監査ログ**: データの削除や更新に関する詳細な操作履歴の保存。
+- **セキュリティヘッダー**: `Content-Security-Policy (CSP)` 等のHTTPヘッダー導入。
