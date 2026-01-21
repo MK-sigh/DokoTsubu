@@ -15,7 +15,9 @@ String errorMsg = (String) request.getAttribute("errorMsg");
         <h1>ユーザー登録</h1>
         <form method="post" action="Register">
             ユーザー名：<input type="text" name="username"><br>
+            <p style="color:gray">ユーザー名は3〜20文字の英数字とアンダースコアのみです。</p>
             パスワード：<input type="password" name="password"><br>
+            <p style="color:gray">パスワードは8～32文字の大文字・小文字・英数字・記号の組み合わせです。</p>
             <input type="submit" value="登録">
         </form>
         <%if (errorMsg!=null){%>

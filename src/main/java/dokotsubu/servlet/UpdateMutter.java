@@ -27,7 +27,7 @@ public class UpdateMutter extends HttpServlet{
             //パラメータ取得
             //id値バリデーション
             String idStr = request.getParameter("id");
-            if(!ValidationUtils.validateId(request, response, idStr, "WEB-INF/jsp/main.jsp"))return;
+            if(!ValidationUtils.validateId(request, response, idStr, "/WEB-INF/jsp/main.jsp"))return;
             //キャスト
             int id = Integer.parseInt(idStr);
             MuttersDAO muttersDAO = new MuttersDAO();

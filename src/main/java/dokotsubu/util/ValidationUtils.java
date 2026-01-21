@@ -64,7 +64,7 @@ public class ValidationUtils {
          String name, String forwardPath) throws ServletException, IOException {
         List<String> errors = new ArrayList<>();
         if (name == null || !name.matches("^[a-zA-Z0-9_]{3,20}$")) {
-                errors.add("ユーザー名は3〜20文字の英数字とアンダースコアのみです");
+                errors.add("ユーザー名は3〜20文字の英数字とアンダースコアのみです。");
         }
         if (!errors.isEmpty()) {
             request.setAttribute("errorMsgs", errors);
