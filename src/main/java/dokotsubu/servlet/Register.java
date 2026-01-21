@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.List;
 
 import dokotsubu.model.RegisterUserLogic;
 import dokotsubu.model.User;
@@ -44,7 +45,7 @@ public class Register extends HttpServlet{
             dispatcher.forward(request, response);
         }else{
             //エラーメッセージをリクエストスコープに保存
-            request.setAttribute("errorMsg","登録できませんでした。最初からやり直してください。");
+            request.setAttribute("errorMsg",List.of("登録できませんでした。最初からやり直してください。"));
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/registerView.jsp");
             dispatcher.forward(request, response);
 

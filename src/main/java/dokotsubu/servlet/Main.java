@@ -30,7 +30,7 @@ public class Main extends HttpServlet {
 		request.setAttribute("mutterList", mutterList);
 		if (mutterList == null){
 			//エラーメッセージをリクエストスコープに保存
-			request.setAttribute("errorMsg", "つぶやきはありません。");
+			request.setAttribute("errorMsg",List.of( "つぶやきはありません。"));
 			return;}
 
 		//ログインしているか確認するためセッションスコープからユーザー情報を取得
@@ -66,7 +66,7 @@ public class Main extends HttpServlet {
 		PostMutterLogic postMutterLogic = new PostMutterLogic();
 		boolean result = postMutterLogic.execute(mutter);
 		if (!result){
-			request.setAttribute("errorMsg", "投稿に失敗しました。");
+			request.setAttribute("errorMsg",List.of( "投稿に失敗しました。"));
 		}
 		
 		//つぶやきリストを取得して、リクエストスコープに保存

@@ -34,7 +34,7 @@ public class DeleteMutter extends HttpServlet{
         Mutter mutter = muttersDao.findById(id);
         //存在チェック
         if (mutter == null) {
-            request.setAttribute("errorMsg", "指定されたつぶやきは存在しません。");
+            request.setAttribute("errorMsg", List.of("指定されたつぶやきは存在しません。"));
             //メイン画面にフォワード
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
             dispatcher.forward(request, response);
@@ -46,7 +46,7 @@ public class DeleteMutter extends HttpServlet{
         User loginUser = (User) session.getAttribute("loginUser");
         //ログインチェック
         if (loginUser == null) {
-            request.setAttribute("errorMsg", "ログインが必要です。");
+            request.setAttribute("errorMsg", List.of("ログインが必要です。"));
             response.sendRedirect("index.jsp");
             return;
         }
@@ -56,7 +56,7 @@ public class DeleteMutter extends HttpServlet{
             DeleteMutterLogic deleteMutterLogic = new DeleteMutterLogic();
             boolean result = deleteMutterLogic.execute(id);
             if(!result){
-                request.setAttribute("errorMsg", "削除に失敗しました");
+                request.setAttribute("errorMsg", List.of("削除に失敗しました"));
             }
             //つぶやきリストを取得して、リクエストスコープに保存
             GetMutterListLogic getMutterListLogic = new GetMutterListLogic();
@@ -64,7 +64,7 @@ public class DeleteMutter extends HttpServlet{
             request.setAttribute("mutterList", mutterList);
         }else{
             //異常：エラーメッセージ
-            request.setAttribute("errorMsg", "自分以外のつぶやきは削除できません。");
+            request.setAttribute("errorMsg",List.of( "自分以外のつぶやきは削除できません。"));
         }
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
         dispatcher.forward(request, response);

@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.List;
 
 import dokotsubu.model.LoginLogic;
 import dokotsubu.model.User;
@@ -48,11 +49,11 @@ public class Login extends HttpServlet {
 				session.setAttribute("csrfToken", csrfToken);
 				
 			}else{
-				request.setAttribute("errorMsg", "パスワードが間違っているか、ユーザーが未登録です");
+				request.setAttribute("errorMsg", List.of("パスワードが間違っているか、ユーザーが未登録です"));
 			}
 		}else{
 			//どちらか入力されていなければエラーメッセージ
-			request.setAttribute("errorMsg", "必要項目が未入力です");
+			request.setAttribute("errorMsg", List.of("必要項目が未入力です"));
 		}
 		//ログイン結果画面にフォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher
