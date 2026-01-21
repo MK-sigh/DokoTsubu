@@ -21,6 +21,10 @@ public class CsrfFilter implements Filter{
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse)res;
         HttpSession session = request.getSession(false);
+        if (session == null) {
+            response.sendError(HttpServletResponse.SC_FORBIDDEN);
+            return;
+        }
 
         //POST リクエストだけ CSRF チェック対象
         if("POST".equalsIgnoreCase(request.getMethod())){ //get,postを判定し大文字・小文字を区別せず 比較する
