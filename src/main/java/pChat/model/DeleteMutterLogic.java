@@ -1,6 +1,6 @@
-package dokotsubu.model;
+package pChat.model;
 
-import dokotsubu.DAO.MuttersDAO;
+import pChat.DAO.MuttersDAO;
 
 public class DeleteMutterLogic {
     public boolean execute(int id) {

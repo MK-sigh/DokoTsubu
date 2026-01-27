@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="org.apache.commons.text.StringEscapeUtils" %>
-<%@ page import="dokotsubu.model.Mutter" %>
+<%@ page import="pChat.model.Mutter" %>
 <%
 //リクエストスコープ取得
 Mutter mutter = (Mutter) request.getAttribute("mutter");
@@ -11,7 +11,7 @@ Mutter mutter = (Mutter) request.getAttribute("mutter");
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Dokotsubu</title>
+        <title>private-chat-log</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     </head>
     <body>
@@ -20,7 +20,7 @@ Mutter mutter = (Mutter) request.getAttribute("mutter");
         <table border="1" style="border-collapse: collapse; width: 100%; margin-bottom:20px;">
             <tr style="background-color: #f2f2f2;">
                 <th>ユーザー名</th>
-                <th>つぶやき内容</th>
+                <th>内容</th>
             </tr>
             <tr>
                 <td><%= StringEscapeUtils.escapeHtml4(mutter.getUserName()) %></td>

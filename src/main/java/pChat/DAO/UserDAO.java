@@ -1,15 +1,15 @@
-package dokotsubu.DAO;
+package pChat.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import dokotsubu.model.User;
-import dokotsubu.util.DBManager;
 import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pChat.model.User;
+import pChat.util.DBManager;
 
 public class UserDAO {
     private static final Logger logger =LoggerFactory.getLogger(UserDAO.class);

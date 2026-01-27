@@ -1,4 +1,4 @@
-package dokotsubu.servlet;
+package pChat.servlet;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -11,11 +11,11 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-import dokotsubu.model.GetMutterListLogic;
-import dokotsubu.model.Mutter;
-import dokotsubu.model.PostMutterLogic;
-import dokotsubu.model.User;
-import dokotsubu.util.ValidationUtils;
+import pChat.model.GetMutterListLogic;
+import pChat.model.Mutter;
+import pChat.model.PostMutterLogic;
+import pChat.model.User;
+import pChat.util.ValidationUtils;
 
 @WebServlet("/app/Main")
 public class Main extends HttpServlet {
@@ -24,13 +24,13 @@ public class Main extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
-		//つぶやきリストを取得して、リクエストスコープに保存
+		//チャットリストを取得して、リクエストスコープに保存
 		GetMutterListLogic getMutterListLogic = new GetMutterListLogic();
 		List<Mutter> mutterList = getMutterListLogic.execute();
 		request.setAttribute("mutterList", mutterList);
 		if (mutterList == null){
 			//エラーメッセージをリクエストスコープに保存
-			request.setAttribute("errorMsg",List.of( "つぶやきはありません。"));
+			request.setAttribute("errorMsg",List.of( "チャットはありません。"));
 			return;}
 
 		//ログインしているか確認するためセッションスコープからユーザー情報を取得
@@ -61,7 +61,7 @@ public class Main extends HttpServlet {
 		HttpSession session = request.getSession();
 		User loginUser = (User)session.getAttribute("loginUser");
 		
-		//呟きを生成してつぶやきリストに追加
+		//呟きを生成してチャットリストに追加
 		Mutter mutter = new Mutter (loginUser.getId(),text);
 		PostMutterLogic postMutterLogic = new PostMutterLogic();
 		boolean result = postMutterLogic.execute(mutter);
@@ -69,7 +69,7 @@ public class Main extends HttpServlet {
 			request.setAttribute("errorMsg",List.of( "投稿に失敗しました。"));
 		}
 		
-		//つぶやきリストを取得して、リクエストスコープに保存
+		//チャットリストを取得して、リクエストスコープに保存
 		GetMutterListLogic getMutterListLogic = new GetMutterListLogic();
 		List<Mutter> mutterList = getMutterListLogic.execute();
 		request.setAttribute("mutterList", mutterList);

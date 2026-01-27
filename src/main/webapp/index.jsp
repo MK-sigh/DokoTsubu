@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Dokotsubu</title>
+<title>private-chat-log</title>
 </head>
 <body>
-<p>Welcome to Dokotsubu !!</p>
+<p>Welcome to private-chat-log !!</p>
 <p style="padding-bottom: 10px;"><a href= "Register">ユーザー未登録の方はこちら</a> </p>
 <form action = "Login" method = "post">
 UserName: <input type="text" name="name"><br>

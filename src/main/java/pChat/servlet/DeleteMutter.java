@@ -1,4 +1,4 @@
-package dokotsubu.servlet;
+package pChat.servlet;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -11,12 +11,12 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-import dokotsubu.DAO.MuttersDAO;
-import dokotsubu.model.DeleteMutterLogic;
-import dokotsubu.model.GetMutterListLogic;
-import dokotsubu.model.Mutter;
-import dokotsubu.model.User;
-import dokotsubu.util.ValidationUtils;
+import pChat.DAO.MuttersDAO;
+import pChat.model.DeleteMutterLogic;
+import pChat.model.GetMutterListLogic;
+import pChat.model.Mutter;
+import pChat.model.User;
+import pChat.util.ValidationUtils;
 
 @WebServlet ("/app/Delete")
 public class DeleteMutter extends HttpServlet{
@@ -34,7 +34,7 @@ public class DeleteMutter extends HttpServlet{
         Mutter mutter = muttersDao.findById(id);
         //存在チェック
         if (mutter == null) {
-            request.setAttribute("errorMsg", List.of("指定されたつぶやきは存在しません。"));
+            request.setAttribute("errorMsg", List.of("指定されたチャットは存在しません。"));
             //メイン画面にフォワード
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
             dispatcher.forward(request, response);
@@ -58,13 +58,13 @@ public class DeleteMutter extends HttpServlet{
             if(!result){
                 request.setAttribute("errorMsg", List.of("削除に失敗しました"));
             }
-            //つぶやきリストを取得して、リクエストスコープに保存
+            //チャットリストを取得して、リクエストスコープに保存
             GetMutterListLogic getMutterListLogic = new GetMutterListLogic();
             List<Mutter> mutterList = getMutterListLogic.execute();
             request.setAttribute("mutterList", mutterList);
         }else{
             //異常：エラーメッセージ
-            request.setAttribute("errorMsg",List.of( "自分以外のつぶやきは削除できません。"));
+            request.setAttribute("errorMsg",List.of( "自分以外のチャットは削除できません。"));
         }
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
         dispatcher.forward(request, response);

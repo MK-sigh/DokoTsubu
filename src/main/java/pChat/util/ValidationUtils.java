@@ -1,4 +1,4 @@
-package dokotsubu.util;
+package pChat.util;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dokotsubu.model.GetMutterListLogic;
-import dokotsubu.model.Mutter;
+import pChat.model.GetMutterListLogic;
+import pChat.model.Mutter;
 
 public class ValidationUtils {
 
@@ -29,7 +29,7 @@ public class ValidationUtils {
         if (!errors.isEmpty()) {
             request.setAttribute("errorMsgs", errors);
             RequestDispatcher dispatcher = request.getRequestDispatcher(forwardPath);
-            //つぶやきリストを取得して、リクエストスコープに保存
+            //チャットリストを取得して、リクエストスコープに保存
             GetMutterListLogic getMutterListLogic = new GetMutterListLogic();
             List<Mutter> mutterList = getMutterListLogic.execute();
             request.setAttribute("mutterList", mutterList);
@@ -49,7 +49,7 @@ public class ValidationUtils {
         if (!errors.isEmpty()) {
             request.setAttribute("errorMsgs", errors);
             RequestDispatcher dispatcher = request.getRequestDispatcher(forwardPath);
-            //つぶやきリストを取得して、リクエストスコープに保存
+            //チャットリストを取得して、リクエストスコープに保存
             GetMutterListLogic getMutterListLogic = new GetMutterListLogic();
             List<Mutter> mutterList = getMutterListLogic.execute();
             request.setAttribute("mutterList", mutterList);
@@ -69,7 +69,7 @@ public class ValidationUtils {
         if (!errors.isEmpty()) {
             request.setAttribute("errorMsgs", errors);
             RequestDispatcher dispatcher = request.getRequestDispatcher(forwardPath);
-            //つぶやきリストを取得して、リクエストスコープに保存
+            //チャットリストを取得して、リクエストスコープに保存
             GetMutterListLogic getMutterListLogic = new GetMutterListLogic();
             List<Mutter> mutterList = getMutterListLogic.execute();
             request.setAttribute("mutterList", mutterList);
@@ -90,7 +90,7 @@ public class ValidationUtils {
         if (!errors.isEmpty()) {
             request.setAttribute("errorMsgs", errors);
             RequestDispatcher dispatcher = request.getRequestDispatcher(forwardPath);
-            //つぶやきリストを取得して、リクエストスコープに保存
+            //チャットリストを取得して、リクエストスコープに保存
             GetMutterListLogic getMutterListLogic = new GetMutterListLogic();
             List<Mutter> mutterList = getMutterListLogic.execute();
             request.setAttribute("mutterList", mutterList);

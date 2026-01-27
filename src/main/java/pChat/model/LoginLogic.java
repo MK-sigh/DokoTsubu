@@ -1,6 +1,6 @@
-package dokotsubu.model;
+package pChat.model;
 
-import dokotsubu.DAO.UserDAO;
+import pChat.DAO.UserDAO;
 
 public class LoginLogic {
 	// ユーザー情報の存在チェック

@@ -1,4 +1,4 @@
-package dokotsubu.servlet;
+package pChat.servlet;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -11,8 +11,8 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-import dokotsubu.model.LoginLogic;
-import dokotsubu.model.User;
+import pChat.model.LoginLogic;
+import pChat.model.User;
 
 @WebServlet("/Login")
 public class Login extends HttpServlet {

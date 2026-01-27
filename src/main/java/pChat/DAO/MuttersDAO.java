@@ -1,4 +1,4 @@
-package dokotsubu.DAO;
+package pChat.DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,10 +6,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dokotsubu.model.Mutter;
-import dokotsubu.util.DBManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pChat.model.Mutter;
+import pChat.util.DBManager;
 
 public class MuttersDAO {
 	private static final Logger logger = LoggerFactory.getLogger(MuttersDAO.class);
@@ -40,7 +40,7 @@ public class MuttersDAO {
 				mutterList.add(mutter);
 			}
 		}catch(SQLException e) {
-			logger.error("つぶやき検索処理でDBエラーが発生しました", e);
+			logger.error("チャット検索処理でDBエラーが発生しました", e);
 			throw new RuntimeException("DB_ERROR");
 		}
 		return mutterList;
@@ -62,7 +62,7 @@ public class MuttersDAO {
 				return false;
 			}
 		}catch (SQLException e) {
-			logger.error("つぶやき投稿処理でDBエラーが発生しました", e);
+			logger.error("チャット投稿処理でDBエラーが発生しました", e);
 			throw new RuntimeException("DB_ERROR");
 		}
 		return true;
@@ -92,7 +92,7 @@ public class MuttersDAO {
 				mutterList.add(mutter);
 			}
 		}catch(SQLException e){
-			logger.error("つぶやき検索処理でDBエラーが発生しました", e);
+			logger.error("チャット検索処理でDBエラーが発生しました", e);
 			throw new RuntimeException("DB_ERROR");
 		}return mutterList;
 	}
@@ -115,13 +115,13 @@ public class MuttersDAO {
 				return false;
 			}
 		}catch (SQLException e) {
-			logger.error("つぶやき編集処理でDBエラーが発生しました", e);
+			logger.error("チャット編集処理でDBエラーが発生しました", e);
 			throw new RuntimeException("DB_ERROR");
 		}
 		return true;
 	}
 
-	//idから検索してつぶやきを返す機能
+	//idから検索してチャットを返す機能
 	public Mutter findById(int id){
 		Mutter mutter = new Mutter();
 		try(Connection conn = DBManager.getConnection()){
@@ -144,7 +144,7 @@ public class MuttersDAO {
 				mutter.setText(rs.getString("TEXT"));
 			}
 		}catch(SQLException e){
-			logger.error("つぶやき検索処理でDBエラーが発生しました", e);
+			logger.error("チャット検索処理でDBエラーが発生しました", e);
 			throw new RuntimeException("DB_ERROR");
 		}return mutter;
 	}
@@ -164,7 +164,7 @@ public class MuttersDAO {
 				return false;
 			}
 		}catch (SQLException e) {
-			logger.error("つぶやき削除処理でDBエラーが発生しました", e);
+			logger.error("チャット削除処理でDBエラーが発生しました", e);
 			throw new RuntimeException("DB_ERROR");
 		}
 		return true;

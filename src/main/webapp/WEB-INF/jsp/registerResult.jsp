@@ -10,6 +10,6 @@
     </head>
     <body>
         <h1>ユーザー登録完了しました。</h1>
-        <p style="padding-bottom: 10px;"><a href="/dokoTsubu">TOPへ</a></p>
+        <p style="padding-bottom: 10px;"><a href="/pChat">TOPへ</a></p>
     </body>
 </html>

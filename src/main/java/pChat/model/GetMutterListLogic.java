@@ -1,8 +1,8 @@
-package dokotsubu.model;
+package pChat.model;
 
 import java.util.List;
 
-import dokotsubu.DAO.MuttersDAO;
+import pChat.DAO.MuttersDAO;
 
 public class GetMutterListLogic {
 	public List<Mutter> execute(){

@@ -1,5 +1,5 @@
-package dokotsubu.model;
-import dokotsubu.DAO.MuttersDAO;
+package pChat.model;
+import pChat.DAO.MuttersDAO;
 
 public class PostMutterLogic {
 	public boolean execute( Mutter mutter) {

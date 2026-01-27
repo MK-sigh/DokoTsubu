@@ -1,7 +1,7 @@
-package dokotsubu.model;
+package pChat.model;
 
-import dokotsubu.DAO.UserDAO;
 import org.mindrot.jbcrypt.BCrypt;
+import pChat.DAO.UserDAO;
 
 public class RegisterUserLogic {
     //ユーザー情報の登録

@@ -1,4 +1,4 @@
-package dokotsubu.filter;
+package pChat.filter;
 
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-import dokotsubu.model.User;
+import pChat.model.User;
 
 @WebFilter("/app/*")///app/* 配下のすべてのリクエストがフィルターを通過
 public class LoginFilter implements Filter{

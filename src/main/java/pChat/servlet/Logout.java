@@ -1,4 +1,4 @@
-package dokotsubu.servlet;
+package pChat.servlet;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;

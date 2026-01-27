@@ -1,4 +1,4 @@
-package dokotsubu.servlet;
+package pChat.servlet;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -11,12 +11,12 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-import dokotsubu.DAO.MuttersDAO;
-import dokotsubu.model.GetMutterListLogic;
-import dokotsubu.model.Mutter;
-import dokotsubu.model.UpdateMutterLogic;
-import dokotsubu.model.User;
-import dokotsubu.util.ValidationUtils;
+import pChat.DAO.MuttersDAO;
+import pChat.model.GetMutterListLogic;
+import pChat.model.Mutter;
+import pChat.model.UpdateMutterLogic;
+import pChat.model.User;
+import pChat.util.ValidationUtils;
 
 @WebServlet ("/app/Update")
 public class UpdateMutter extends HttpServlet{
@@ -34,7 +34,7 @@ public class UpdateMutter extends HttpServlet{
             Mutter mutter = muttersDAO.findById(id);
             //存在チェック
             if (mutter == null) {
-                  request.setAttribute("errorMsg", List.of("指定されたつぶやきは存在しません。"));
+                  request.setAttribute("errorMsg", List.of("指定されたチャットは存在しません。"));
                   //メイン画面にフォワード
                   RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
                   dispatcher.forward(request, response);
@@ -58,7 +58,7 @@ public class UpdateMutter extends HttpServlet{
                   dispatcher.forward(request, response);
             }else{
                   //異常：メイン画面にフォワード
-                  request.setAttribute("errorMsg", List.of("自分以外のつぶやきは編集できません。"));
+                  request.setAttribute("errorMsg", List.of("自分以外のチャットは編集できません。"));
                   RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
                   dispatcher.forward(request, response);
                   return;
@@ -101,13 +101,13 @@ public class UpdateMutter extends HttpServlet{
                   }
             }else{
                   //異常：メイン画面にフォワード
-                  request.setAttribute("errorMsg", List.of("自分以外のつぶやきは編集できません。"));
+                  request.setAttribute("errorMsg", List.of("自分以外のチャットは編集できません。"));
                   RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
                   dispatcher.forward(request, response);
                   return;
             }
 
-            //つぶやきリストを取得して、リクエストスコープに保存
+            //チャットリストを取得して、リクエストスコープに保存
             GetMutterListLogic getMutterListLogic = new GetMutterListLogic();
             List<Mutter> mutterList = getMutterListLogic.execute();
             request.setAttribute("mutterList", mutterList);

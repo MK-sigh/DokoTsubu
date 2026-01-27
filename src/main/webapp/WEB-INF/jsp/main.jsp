@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="org.apache.commons.text.StringEscapeUtils" %>
-<%@ page import="dokotsubu.model.User, dokotsubu.model.Mutter, java.util.List" %>
+<%@ page import="pChat.model.User, pChat.model.Mutter, java.util.List" %>
 <%
 //セッションスコープに保存されたユーザー情報を取得
 User loginUser = (User) session.getAttribute("loginUser");
-//リクエストスコープに保存されたつぶやきリストを取得
+//リクエストスコープに保存されたチャットリストを取得
 List<Mutter> mutterList = (List<Mutter>)request.getAttribute("mutterList");
 //リクエストスコープに保存されたエラーメッセージを取得
 String errorMsg = (String)request.getAttribute("errorMsg");
@@ -15,11 +15,11 @@ String errorMsg = (String)request.getAttribute("errorMsg");
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Dokotsubu</title>
+        <title>private-chat-log</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     </head>
     <body>
-        <h1>Dokotsubu main</h1>
+        <h1>private-chat-log main</h1>
         <p style="margin-bottom: 20px;">
         <% if(loginUser != null){ %>
         <%= loginUser.getName() %>
@@ -40,7 +40,7 @@ String errorMsg = (String)request.getAttribute("errorMsg");
             <form action="<%= request.getContextPath() %>/app/Main" method="post" style="margin-bottom: 20px;">
                 <input type="text" name="text">
                 <input type="hidden" name="csrfToken" value="<%= session.getAttribute("csrfToken") %>">
-                <input type="submit" value="つぶやく">
+                <input type="submit" value="投稿">
             </form>
         </div>
 
@@ -58,7 +58,7 @@ String errorMsg = (String)request.getAttribute("errorMsg");
         <table border="1" style="border-collapse: collapse; width: 100%;">
             <tr style="background-color: #f2f2f2;">
                 <th>ユーザー名</th>
-                <th>つぶやき内容</th>
+                <th>チャット内容</th>
                 <th>操作</th>
             </tr>
             <%if (mutterList != null && mutterList.size() > 0){%>
@@ -83,7 +83,7 @@ String errorMsg = (String)request.getAttribute("errorMsg");
                 <% } %>
             </table>
             <%}else{%>
-                <p>つぶやきはありません。</p>
+                <p>チャットはありません。</p>
             <%} %>
 
     </body>

@@ -1,4 +1,4 @@
-package dokotsubu.servlet;
+package pChat.servlet;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -10,9 +10,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-import dokotsubu.DAO.MuttersDAO;
-import dokotsubu.model.GetMutterListLogic;
-import dokotsubu.model.Mutter;
+import pChat.DAO.MuttersDAO;
+import pChat.model.GetMutterListLogic;
+import pChat.model.Mutter;
 
 @WebServlet ("/app/Search")
 public class SearchMutter extends HttpServlet{
@@ -31,7 +31,7 @@ public class SearchMutter extends HttpServlet{
 
 			
 		}else {
-            //つぶやきリストを取得して、リクエストスコープに保存
+            //チャットリストを取得して、リクエストスコープに保存
             GetMutterListLogic getMutterListLogic = new GetMutterListLogic();
             List<Mutter> mutterList = getMutterListLogic.execute();
             request.setAttribute("mutterList", mutterList);

@@ -1,4 +1,4 @@
-package dokotsubu.servlet;
+package pChat.servlet;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -10,9 +10,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-import dokotsubu.model.RegisterUserLogic;
-import dokotsubu.model.User;
-import dokotsubu.util.ValidationUtils;
+import pChat.model.RegisterUserLogic;
+import pChat.model.User;
+import pChat.util.ValidationUtils;
 
 @WebServlet("/Register")
 public class Register extends HttpServlet{
